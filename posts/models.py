@@ -1,10 +1,15 @@
 from django.db import models
 
 # Create your models here.
+class Category(models.Model):
+    category = models.CharField(max_length=120)
+    count = models.IntegerField(default=0)
+
 class Posts(models.Model):
     title = models.CharField(max_length=500)
     description = models.TextField()
     slug = models.CharField(max_length=500)
+    category = models.ManyToManyField(Category, related_name='post_category', blank=True)
     time_stamp = models.DateTimeField(auto_now=True)
     upvotes = models.IntegerField(default=0)
     downvotes = models.IntegerField(default=0)
@@ -20,6 +25,7 @@ class GithubProjects(models.Model):
     title = models.CharField(max_length=500)
     description = models.TextField()
     slug = models.CharField(max_length=500)
+    category = models.ManyToManyField(Category, related_name='github_project_category', blank=True)
     timestamp = models.DateTimeField(auto_now=True)
     upvotes = models.IntegerField(default=0)
     downvotes = models.IntegerField(default=0)
